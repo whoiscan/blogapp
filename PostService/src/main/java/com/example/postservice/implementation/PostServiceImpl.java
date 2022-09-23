@@ -1,21 +1,20 @@
 package com.example.postservice.implementation;
 
-import com.example.postservice.repository.PostRepository;
 import com.example.postservice.model.Post;
+import com.example.postservice.repository.PostRepository;
 import com.example.postservice.service.PostService;
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
-@AllArgsConstructor
 @Slf4j
 @Service
 public class PostServiceImpl implements PostService {
-
-    private final PostRepository postRepository;
+    @Autowired
+    private PostRepository postRepository;
 
     @Override
     public void addNewPost(Post post) {
