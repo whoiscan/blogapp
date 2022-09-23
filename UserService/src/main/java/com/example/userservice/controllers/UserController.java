@@ -1,16 +1,24 @@
 package com.example.userservice.controllers;
 
 import com.example.userservice.models.Response;
+import com.example.userservice.models.UserLoginDTO;
 import com.example.userservice.models.UserRequestDTO;
 import com.example.userservice.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/users")
 public class UserController {
     @Autowired
     private UserService userService;
+
+    @PostMapping("/login")
+    public Response findByUsername(@Valid @RequestBody UserLoginDTO userLoginDTO) {
+        return userService.getByUsername(userLoginDTO);
+    }
 
     @GetMapping
     public Response getAll() {
@@ -23,12 +31,12 @@ public class UserController {
     }
 
     @PostMapping
-    public Response save(@RequestBody UserRequestDTO userRequestDTO) {
+    public Response save(@Valid @RequestBody UserRequestDTO userRequestDTO) {
         return userService.save(userRequestDTO);
     }
 
     @PutMapping("/{id}")
-    public Response update(@PathVariable Long id, @RequestBody UserRequestDTO userRequestDTO) {
+    public Response update(@PathVariable Long id, @Valid @RequestBody UserRequestDTO userRequestDTO) {
         return userService.update(id, userRequestDTO);
     }
 
