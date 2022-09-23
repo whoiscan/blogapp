@@ -1,5 +1,6 @@
 package com.example.cloudgateway.config;
 
+import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
@@ -30,6 +31,7 @@ public class AuthFilter implements GatewayFilter {
 
             if (jwtUtils.isInvalid(token))
                 return onError(exchange, "Authorization header is invalid!", HttpStatus.UNAUTHORIZED);
+            populateRequestWithHeaders(exchange, token);
         }
         return chain.filter(exchange);
     }
@@ -46,6 +48,11 @@ public class AuthFilter implements GatewayFilter {
 
     private boolean isAuthMissing(ServerHttpRequest request) {
         return !request.getHeaders().containsKey("Authorization");
+    }
+
+    private void populateRequestWithHeaders(ServerWebExchange exchange, String token) {
+        Claims claims = jwtUtils.getClaimsFromToken(token);
+        exchange.getRequest().mutate().header("id", String.valueOf(claims.get("id"))).header("role", String.valueOf(claims.get("role"))).header("username", String.valueOf(claims.get("username"))).build();
     }
 
 }
