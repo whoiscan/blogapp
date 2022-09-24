@@ -13,4 +13,6 @@ public interface CommentService {
     Response update(Long id, CommentRequestDTO commentRequestDTO);
 
     Response getAll();
+
+    Response getCommentsByPostId(Long id);
 }

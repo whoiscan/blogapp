@@ -30,8 +30,7 @@ public class AuthServiceImpl implements AuthService {
         Response response = restTemplate.postForObject(userServiceUrl + "/login", signInRequest, Response.class);
         if (response == null) return new Response(false, "Could not get response from User Service!", null);
         if (!response.isSuccess() || response.getData() == null) return response;
-        UserResponse userResponse = objectMapper.readValue(objectMapper.writeValueAsString(response.getData()), new TypeReference<UserResponse>() {
-        });
+        UserResponse userResponse = objectMapper.readValue(objectMapper.writeValueAsString(response.getData()), new TypeReference<UserResponse>() {});
         String token = jwtService.generateJwtToken(userResponse);
         return new Response(token, true);
     }

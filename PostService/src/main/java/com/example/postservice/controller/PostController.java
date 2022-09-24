@@ -4,6 +4,7 @@ import com.example.postservice.entity.Post;
 import com.example.postservice.model.PostRequestDTO;
 import com.example.postservice.model.Response;
 import com.example.postservice.service.PostService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,6 +20,11 @@ public class PostController {
     @GetMapping
     public Response getAllPosts() {
         return postService.getAllPosts();
+    }
+
+    @GetMapping(path = "{postId}")
+    public Response getPost(@PathVariable Long postId) throws JsonProcessingException {
+        return postService.getPost(postId);
     }
 
     @GetMapping("/me")

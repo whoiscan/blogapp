@@ -60,6 +60,11 @@ public class CommentServiceImpl implements CommentService {
         return new Response(commentRepository.findAll(), true);
     }
 
+    @Override
+    public Response getCommentsByPostId(Long id) {
+        return new Response(commentRepository.findCommentsByPostId(id),true);
+    }
+
     private CommentDTO parseCommentToDto(Comment comment) {
         return new CommentDTO(comment.getId(), comment.getComment(),
                 comment.getCreatedDate(), comment.getUpdatedDate(),

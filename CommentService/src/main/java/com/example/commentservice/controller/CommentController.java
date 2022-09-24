@@ -22,6 +22,11 @@ public class CommentController {
         return commentService.getById(id);
     }
 
+    @GetMapping("/post/{id}")
+    public Response getByPostId(@PathVariable Long id) {
+        return commentService.getCommentsByPostId(id);
+    }
+
     @PostMapping
     public Response save(@RequestHeader(value = "id") String userId, @RequestBody CommentRequestDTO commentRequestDTO) {
         return commentService.save(userId, commentRequestDTO);
