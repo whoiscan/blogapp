@@ -25,13 +25,16 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Response deletePost(Long postId) {
+    public Response deletePost(Long userId,Long postId) {
         Optional<Post> optionalPost = postRepository.findById(postId);
-        if (optionalPost.isPresent()) {
+        if (optionalPost.isPresent() && optionalPost.get().getId() == userId) {
             postRepository.deleteById(postId);
             log.info("Successfully delete post with id: {}", postId);
             return new Response(true,"Successfully deleted",optionalPost);
-        } else {
+        } else if (optionalPost.get().getId() != userId) {
+            log.error("Could not update post with id: {}", postId);
+            return new Response(false,"You cannot update this post",null);
+        }  else {
             log.error("Could not find post with id: {}", postId);
             return new Response(false,"Could not find post",null);
         }

@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface PostService {
     Response addNewPost(Post post);
-    Response deletePost(Long postId);
+    Response deletePost(Long userId,Long postId);
 
     Response getAllPosts();
 
