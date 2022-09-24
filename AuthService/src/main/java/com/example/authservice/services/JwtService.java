@@ -1,7 +1,6 @@
 package com.example.authservice.services;
 
 import com.example.authservice.model.UserResponse;
-import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
@@ -45,31 +44,4 @@ public class JwtService {
                 .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
     }
-
-    public Claims getClaimsFormToken(String token) {
-        return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).getBody();
-    }
-    public Claims getClaimsFromToken(String token) {
-        return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).getBody();
-    }
-
-    private boolean isTokenExpired(String token) {
-        return getClaimsFromToken(token).getExpiration().before(new Date());
-    }
-
-    private boolean validateJwtToken(String token) {
-        try {
-            Jwts.parserBuilder().setSigningKey(key).build().parse(token);
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-
-    public boolean isInvalid(String token) {
-        return isTokenExpired(token) || !validateJwtToken(token);
-    }
-
-
 }

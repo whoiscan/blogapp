@@ -23,7 +23,7 @@ public class AuthFilter implements GatewayFilter {
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         ServerHttpRequest request = exchange.getRequest();
-        if (routeWhiteList.isSecured.test(request)) {
+        if (routeWhiteList.isSecured(request)) {
             if (isAuthMissing(request))
                 return this.onError(exchange, "Authorization header is missing in request!", HttpStatus.UNAUTHORIZED);
 
