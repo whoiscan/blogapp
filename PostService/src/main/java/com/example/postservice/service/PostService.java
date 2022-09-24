@@ -1,12 +1,15 @@
 package com.example.postservice.service;
-import com.example.postservice.model.Post;
-import org.springframework.stereotype.Service;
+import com.example.postservice.entity.Post;
+import com.example.postservice.model.PostRequestDTO;
+import com.example.postservice.model.Response;
 
 import java.util.List;
 
 public interface PostService {
-    void addNewPost(Post post);
-    void deletePost(Long postId);
+    Response addNewPost(Post post);
+    Response deletePost(Long postId);
 
-    List<Post> getAllPosts();
+    Response getAllPosts();
+
+    Response updatePost(Long userId, Long postId, PostRequestDTO postRequestDTO);
 }
