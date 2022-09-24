@@ -4,7 +4,7 @@ import com.example.commentservice.model.CommentRequestDTO;
 import com.example.commentservice.model.Response;
 
 public interface CommentService {
-    Response save(CommentRequestDTO commentRequestDTO);
+    Response save(String userId, CommentRequestDTO commentRequestDTO);
 
     Response getById(Long id);
 

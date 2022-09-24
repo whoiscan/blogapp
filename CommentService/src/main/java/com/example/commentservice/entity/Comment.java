@@ -25,4 +25,12 @@ public class Comment {
     private Long userId;
 
     private Long postId;
+
+    public Comment(String comment, Date createdDate, Date updatedDate, Long userId, Long postId) {
+        this.comment = comment;
+        this.createdDate = createdDate;
+        this.updatedDate = updatedDate;
+        this.userId = userId;
+        this.postId = postId;
+    }
 }

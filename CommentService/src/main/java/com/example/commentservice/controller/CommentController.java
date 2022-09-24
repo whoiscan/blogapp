@@ -23,8 +23,8 @@ public class CommentController {
     }
 
     @PostMapping
-    public Response save(@RequestBody CommentRequestDTO commentRequestDTO) {
-        return commentService.save(commentRequestDTO);
+    public Response save(@RequestHeader(value = "id") String userId, @RequestBody CommentRequestDTO commentRequestDTO) {
+        return commentService.save(userId, commentRequestDTO);
     }
 
     @PutMapping("/{id}")
