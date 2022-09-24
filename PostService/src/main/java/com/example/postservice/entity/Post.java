@@ -17,13 +17,13 @@ public class Post {
     @Id
     @GeneratedValue
     private Long id;
-    private Long user_id;
+    private Long userId;
     @Column(unique = true)
     private String title;
     private String content;
 
-    public Post(Long user_id, String title, String content) {
-        this.user_id = user_id;
+    public Post(Long userId, String title, String content) {
+        this.userId = userId;
         this.title = title;
         this.content = content;
     }

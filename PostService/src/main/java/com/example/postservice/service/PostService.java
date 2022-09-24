@@ -12,4 +12,6 @@ public interface PostService {
     Response getAllPosts();
 
     Response updatePost(Long userId, Long postId, PostRequestDTO postRequestDTO);
+
+    Response getMyPosts(Long userId);
 }

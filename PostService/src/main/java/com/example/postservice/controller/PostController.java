@@ -21,6 +21,11 @@ public class PostController {
         return postService.getAllPosts();
     }
 
+    @GetMapping("/me")
+    public Response getMyPosts(@RequestHeader(value = "id") Long userId) {
+        return postService.getMyPosts(userId);
+    }
+
     @PostMapping
     public Response addNewPost(@Valid @RequestBody PostRequestDTO postRequestDTO,
                                @RequestHeader(value = "id") Long userId) {

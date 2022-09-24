@@ -64,4 +64,14 @@ public class PostServiceImpl implements PostService {
             return new Response(false,"Cannot find the post",null);
         }
     }
+
+    @Override
+    public Response getMyPosts(Long userId) {
+        List<Post> posts = postRepository.findAllByUserId(userId);
+        if (posts == null) {
+            return new Response(false, "No posts found", null);
+        } else {
+            return new Response(true,"My posts", posts);
+        }
+    }
 }
