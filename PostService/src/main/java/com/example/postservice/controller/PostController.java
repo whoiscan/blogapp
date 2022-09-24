@@ -1,10 +1,13 @@
 package com.example.postservice.controller;
 
-import com.example.postservice.model.Post;
+import com.example.postservice.entity.Post;
+import com.example.postservice.model.PostRequestDTO;
+import com.example.postservice.model.Response;
 import com.example.postservice.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -14,17 +17,32 @@ public class PostController {
     private PostService postService;
 
     @GetMapping
-    public List<Post> getAllPosts() {
+    public Response getAllPosts() {
         return postService.getAllPosts();
     }
 
+    @GetMapping("/me")
+    public Response getMyPosts(@RequestHeader(value = "id") Long userId) {
+        return postService.getMyPosts(userId);
+    }
+
     @PostMapping
-    public void addNewPost(@RequestBody Post newPost) {
-        postService.addNewPost(newPost);
+    public Response addNewPost(@Valid @RequestBody PostRequestDTO postRequestDTO,
+                               @RequestHeader(value = "id") Long userId) {
+        Post tempPost = new Post(userId,postRequestDTO.getTitle(),postRequestDTO.getContent());
+        return postService.addNewPost(tempPost);
     }
 
     @DeleteMapping(path = "{postId}")
-    public void deletePost(@PathVariable Long postId) {
-        postService.deletePost(postId);
+    public Response deletePost(@PathVariable Long postId,
+                               @RequestHeader(value = "id") Long userId) {
+        return postService.deletePost(userId, postId);
+    }
+
+    @PutMapping(path = "{postId}")
+    public Response updatePost(@PathVariable Long postId,
+                               @RequestHeader(value = "id") Long userId,
+                               @Valid @RequestBody PostRequestDTO postRequestDTO) {
+        return postService.updatePost(userId,postId, postRequestDTO);
     }
 }

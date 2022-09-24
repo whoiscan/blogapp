@@ -12,4 +12,5 @@ public class PostServiceApplication {
         SpringApplication.run(PostServiceApplication.class, args);
     }
 
+
 }

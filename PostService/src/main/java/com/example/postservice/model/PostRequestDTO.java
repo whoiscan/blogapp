@@ -5,19 +5,15 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.validation.constraints.NotBlank;
 
 @Data
-@Entity
 @AllArgsConstructor
 @NoArgsConstructor
-public class Post {
-    @Id
-    @GeneratedValue
-    private Long id;
+public class PostRequestDTO {
     @Column(unique = true)
+    @NotBlank
     private String title;
+    @NotBlank
     private String content;
 }
